@@ -25,7 +25,7 @@ function Login() {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((event, session) => {
       if (event === "SIGNED_IN" && session) {
-        router.push("/dashboard");
+        router.push("https://ai-interview-vert-three.vercel.app/dashboard");
       }
     });
 
