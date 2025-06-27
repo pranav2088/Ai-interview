@@ -13,9 +13,12 @@ function Login() {
   const signInWithGoogle = async () => {
     const { error } = await supabase.auth.signInWithOAuth({
       provider: "google",
+      options: {
+        redirectTo: "https://ai-interview-vert-three.vercel.app", // your deployed domain
+      },
     });
-
-    if (error) {
+    //ai-interview-vert-three.vercel.app
+    https: if (error) {
       console.error("Error", error.message);
     }
   };
@@ -25,7 +28,7 @@ function Login() {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((event, session) => {
       if (event === "SIGNED_IN" && session) {
-        router.push("https://ai-interview-vert-three.vercel.app/dashboard");
+        router.push("/dashboard");
       }
     });
 
