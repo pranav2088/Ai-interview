@@ -1,20 +1,39 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/services/supabaseClient";
+import { useRouter } from "next/navigation";
 
 function Login() {
+  const router = useRouter();
+
   //  used to sign In With Google
   const signInWithGoogle = async () => {
     const { error } = await supabase.auth.signInWithOAuth({
       provider: "google",
     });
+
     if (error) {
       console.error("Error", error.message);
     }
   };
+
+  useEffect(() => {
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((event, session) => {
+      if (event === "SIGNED_IN" && session) {
+        router.push("/dashboard");
+      }
+    });
+
+    return () => {
+      subscription.unsubscribe();
+    };
+  }, [router]);
+
   return (
     <div className="flex flex-col items-center justify-center h-screen">
       <div className="flex flex-col items-center border rounded-2xl p-8">
