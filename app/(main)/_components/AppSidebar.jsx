@@ -89,7 +89,7 @@ export function AppSidebar() {
           />
           <Button className={"w-full mt-5"}>
             <Plus />
-            Create new Interview{" "}
+            Create new Interview{"/dashboard/create-interview"}
           </Button>
         </SidebarHeader>
         <SidebarContent>
