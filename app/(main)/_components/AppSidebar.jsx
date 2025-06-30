@@ -22,9 +22,19 @@ import React from "react";
 import { supabase } from "@/services/supabaseClient";
 import { toast } from "sonner";
 
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+
 export function AppSidebar() {
   const path = usePathname();
   const router = useRouter();
+  const [logoutConfirmOpen, setLogoutConfirmOpen] = useState(false);
 
   useEffect(() => {
     const checkSession = async () => {
@@ -59,53 +69,82 @@ export function AppSidebar() {
 
   const handleClick = async (item) => {
     if (item.name === "Logout") {
-      await handleLogout();
+      setLogoutConfirmOpen(true); // open the dialog
     } else {
       router.push(item.path);
     }
   };
 
   return (
-    <Sidebar>
-      <SidebarHeader className={"flex items-center mt-5"}>
-        <Image
-          src={"/logo.png"}
-          alt="logo"
-          height={100}
-          width={100}
-          className="w-[150]"
-        />
-        <Button className={"w-full mt-5"}>
-          <Plus />
-          Create new Interview{" "}
-        </Button>
-      </SidebarHeader>
-      <SidebarContent>
-        <SidebarGroup>
-          <SidebarContent>
-            <SidebarMenu>
-              {SideBarOptions.map((option, index) => (
-                <SidebarMenuItem key={index} className={"p-1"}>
-                  <SidebarMenuButton
-                    onClick={() => handleClick(option)}
-                    className={`${path === option.path && "bg-blue-50"}`}
-                  >
-                    <option.icon
-                      className={`${path === option.path && "text-primary"}`}
-                    />
-                    <span
-                      className={`${path === option.path && "text-primary"}`}
+    <>
+      <Sidebar>
+        <SidebarHeader className={"flex items-center mt-5"}>
+          <Image
+            src={"/logo.png"}
+            alt="logo"
+            height={100}
+            width={100}
+            className="w-[150]"
+          />
+          <Button className={"w-full mt-5"}>
+            <Plus />
+            Create new Interview{" "}
+          </Button>
+        </SidebarHeader>
+        <SidebarContent>
+          <SidebarGroup>
+            <SidebarContent>
+              <SidebarMenu>
+                {SideBarOptions.map((option, index) => (
+                  <SidebarMenuItem key={index} className={"p-1"}>
+                    <SidebarMenuButton
+                      onClick={() => handleClick(option)}
+                      className={`${path === option.path && "bg-blue-50"}`}
                     >
-                      {option.name}
-                    </span>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
-            </SidebarMenu>
-          </SidebarContent>
-        </SidebarGroup>
-      </SidebarContent>
-      <SidebarFooter />
-    </Sidebar>
+                      <option.icon
+                        className={`${path === option.path && "text-primary"}`}
+                      />
+                      <span
+                        className={`${path === option.path && "text-primary"}`}
+                      >
+                        {option.name}
+                      </span>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                ))}
+              </SidebarMenu>
+            </SidebarContent>
+          </SidebarGroup>
+        </SidebarContent>
+        <SidebarFooter />
+      </Sidebar>
+      <Dialog open={logoutConfirmOpen} onOpenChange={setLogoutConfirmOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Are you sure you want to logout?</DialogTitle>
+            <DialogDescription>
+              You will be signed out and redirected to the login page.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="flex justify-end gap-4 mt-4">
+            <Button
+              variant="secondary"
+              onClick={() => setLogoutConfirmOpen(false)}
+            >
+              Cancel
+            </Button>
+            <Button
+              variant="destructive"
+              onClick={async () => {
+                setLogoutConfirmOpen(false);
+                await handleLogout();
+              }}
+            >
+              Logout
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
+    </>
   );
 }
