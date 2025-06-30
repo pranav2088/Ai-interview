@@ -42,7 +42,8 @@ export function AppSidebar() {
         const { data, error } = await supabase.auth.getSession();
 
         if (!data.session) {
-          toast.error("Auth session missing! Please log in again.");
+          // toast.error("Auth session missing! Please log in again.");
+          toast.error("Please log in!");
           router.push("/");
         }
       } catch (e) {
