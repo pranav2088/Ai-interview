@@ -87,9 +87,12 @@ export function AppSidebar() {
             width={100}
             className="w-[150]"
           />
-          <Button className={"w-full mt-5"}>
+          <Button
+            className={"w-full mt-5"}
+            onClick={() => router.push("/dashboard/create-interview")}
+          >
             <Plus />
-            Create new Interview{"/dashboard/create-interview"}
+            Create new Interview{""}
           </Button>
         </SidebarHeader>
         <SidebarContent>
