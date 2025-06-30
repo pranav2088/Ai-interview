@@ -38,13 +38,13 @@ function CreateInterview() {
     setStep(step + 1);
   };
 
-  const CreateInterview = () => {
-    setStep(step - 2);
-  };
-
   const onCreateLink = (interview_id) => {
     setInterview_id(interview_id);
-    setStep(step == 1);
+    setStep(step + 1);
+  };
+
+  const CreateInterview = () => {
+    setStep(step - 2);
   };
 
   return (
