@@ -92,7 +92,7 @@ function InterviewLink({ interview_id, formData, CreateInterview }) {
           </Button>
         </Link>
 
-        <div className="mt-7 flex justify-end">
+        <div className="flex justify-end">
           <Button
             onClick={() => CreateInterview()}
             className="group flex items-center gap-2"
@@ -102,13 +102,6 @@ function InterviewLink({ interview_id, formData, CreateInterview }) {
             <ArrowRight className="group-hover:translate-x-1 transition-transform duration-200" />
           </Button>
         </div>
-
-        {/* <Link href={"/dashboard/create-interview"}>
-          <Button>
-            <Plus />
-            Create New Interview
-          </Button>
-        </Link> */}
       </div>
     </div>
   );
