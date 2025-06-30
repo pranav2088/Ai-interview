@@ -32,7 +32,9 @@ function AllInterview() {
         <div className="p-5 flex flex-col gap-3 items-center bg-white p-5 mt-5">
           <Video className="h-10 w-10 text-primary bg-white " />
           <h2>You don't have any interview Created!</h2>
-          <Button>Create new Interview</Button>
+          <Button onClick={() => router.push("/dashboard/create-interview")}>
+            Create new Interview
+          </Button>
         </div>
       )}
       {interviewList && (
