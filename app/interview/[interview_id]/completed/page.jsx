@@ -74,12 +74,12 @@ function Interviewcompleted() {
             We appreciate your time and effort. Best of luck!
           </p>
           <div className="mt-7 flex justify-end">
+            <SquareX />
+            {loading && <Loader2Icon />}
             <Button
               className="group flex items-center gap-2"
               onClick={() => onCloseInterview()}
             >
-              <SquareX />
-              {loading && <Loader2Icon />}
               Close
             </Button>
           </div>
