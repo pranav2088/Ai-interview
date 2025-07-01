@@ -5,6 +5,7 @@ import Image from "next/image";
 import { InterviewDataContext } from "@/context/InterviewDataContext";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { Video } from "lucide-react";
 
 function Interviewcompleted() {
   const { interviewInfo } = useContext(InterviewDataContext);
