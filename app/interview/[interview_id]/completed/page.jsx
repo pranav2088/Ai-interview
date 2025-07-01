@@ -73,15 +73,16 @@ function Interviewcompleted() {
           <p className="mt-4 text-gray-600">
             We appreciate your time and effort. Best of luck!
           </p>
-
-          <Button
-            className="group flex items-center gap-2"
-            onClick={() => onCloseInterview()}
-          >
-            <DoorClosedLocked />
-            {loading && <Loader2Icon />}
-            Close
-          </Button>
+          <div className="mt-7 flex justify-end">
+            <Button
+              className="group flex items-center gap-2"
+              onClick={() => onCloseInterview()}
+            >
+              <DoorClosedLocked />
+              {loading && <Loader2Icon />}
+              Close
+            </Button>
+          </div>
         </div>
       </div>
     </div>
