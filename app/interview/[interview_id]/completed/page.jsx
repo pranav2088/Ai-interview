@@ -5,7 +5,7 @@ import Image from "next/image";
 import { InterviewDataContext } from "@/context/InterviewDataContext";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Video } from "lucide-react";
+import { Loader2Icon, Video } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 
 function Interviewcompleted() {
