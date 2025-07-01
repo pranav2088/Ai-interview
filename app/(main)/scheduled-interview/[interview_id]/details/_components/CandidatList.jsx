@@ -42,7 +42,7 @@ function CandidatList({ candidateList }) {
                     ? (
                         values.reduce((a, b) => a + b, 0) / values.length
                       ).toFixed(1)
-                    : "N/A";
+                    : "0";
 
                 return `${average}/10`;
               })()}
