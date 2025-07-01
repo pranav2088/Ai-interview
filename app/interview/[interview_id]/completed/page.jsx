@@ -5,7 +5,7 @@ import Image from "next/image";
 import { InterviewDataContext } from "@/context/InterviewDataContext";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Loader2Icon, Video } from "lucide-react";
+import { DoorClosedLocked, Loader2Icon, Video } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 
 function Interviewcompleted() {
@@ -75,20 +75,13 @@ function Interviewcompleted() {
           </p>
 
           <Button
-            className={"mt-5 w-full font-bold"}
+            className="group flex items-center gap-2"
             onClick={() => onCloseInterview()}
           >
-            <Video />
+            <DoorClosedLocked />
             {loading && <Loader2Icon />}
             Close
           </Button>
-
-          <Link
-            href="/"
-            className="inline-block mt-6 px-6 py-3 bg-blue-600 text-white font-medium rounded-md hover:bg-blue-700 transition duration-300"
-          >
-            Close
-          </Link>
         </div>
       </div>
     </div>
