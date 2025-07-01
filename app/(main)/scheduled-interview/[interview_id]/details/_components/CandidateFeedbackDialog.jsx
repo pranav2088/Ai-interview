@@ -36,9 +36,7 @@ function CandidateFeedbackDialog({ candidate }) {
                     </h2>
                   </div>
                 </div>
-                {/* <div className="flex gap-3 items-center">
-                  <h2 className="text-primary text-2xl font-bold">6/10</h2>
-                </div> */}
+
                 <div className="flex gap-3 items-center">
                   <h2 className="text-primary text-2xl font-bold">
                     {(() => {
@@ -48,14 +46,14 @@ function CandidateFeedbackDialog({ candidate }) {
                         ratings?.communication,
                         ratings?.problemSloving,
                         ratings?.experince,
-                      ].filter((v) => typeof v === "number"); // avoid undefined/null
+                      ].filter((v) => typeof v === "number");
 
                       const average =
                         values.length > 0
                           ? (
                               values.reduce((a, b) => a + b, 0) / values.length
                             ).toFixed(1)
-                          : "N/A";
+                          : "0";
 
                       return `${average}/10`;
                     })()}

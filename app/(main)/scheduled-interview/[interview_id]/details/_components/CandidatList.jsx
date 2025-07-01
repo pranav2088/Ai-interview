@@ -25,8 +25,6 @@ function CandidatList({ candidateList }) {
             </div>
           </div>
           <div className="flex gap-3 items-center">
-            {/* <h2 className="text-green-600">6/10</h2> */}
-
             <h2 className="text-green-600">
               {(() => {
                 const ratings = candidate?.feedback?.feedback?.rating;
