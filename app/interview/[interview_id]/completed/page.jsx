@@ -78,8 +78,8 @@ function Interviewcompleted() {
               className="group flex items-center gap-2"
               onClick={() => onCloseInterview()}
             >
-              Close
-              {loading && <SquareX />}
+              <SquareX />
+              {loading && <Loader2Icon />}
             </Button>
           </div>
         </div>
