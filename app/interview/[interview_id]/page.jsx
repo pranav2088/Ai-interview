@@ -45,21 +45,71 @@ function Interview() {
   };
 
   const onJonInterview = async () => {
+    if (!userName || !userEmail || !interview_id) {
+      toast("Please fill in all fields.");
+      return;
+    }
+
     setLoading(true);
 
-    let { data: interviews, error } = await supabase
-      .from("interviews")
-      .select("*")
-      .eq("interview_id", interview_id);
+    try {
+      const { data: interviews, error } = await supabase
+        .from("interviews")
+        .select("*")
+        .eq("interview_id", interview_id);
 
-    setInterviewInfo({
-      userName: userName,
-      userEmail: userEmail,
-      interviewData: interviews[0],
-    });
-    router.push("/interview/" + interview_id + "/start");
-    setLoading(false);
+      if (error || !interviews || interviews.length === 0) {
+        toast("Interview not found. Try again.");
+        setLoading(false);
+        return;
+      }
+
+      const interviewInfoData = {
+        userName,
+        userEmail,
+        interviewData: interviews[0],
+      };
+
+      // ✅ Step 1: Save in context
+      setInterviewInfo(interviewInfoData);
+
+      // ✅ Step 2: Save in localStorage and wait for it
+      try {
+        localStorage.setItem(
+          "interviewInfo",
+          JSON.stringify(interviewInfoData)
+        );
+      } catch (storageError) {
+        toast("Failed to save interview info locally.");
+        setLoading(false);
+        return;
+      }
+
+      // ✅ Step 3: Only after data is saved, navigate
+      router.push("/interview/" + interview_id + "/start");
+    } catch (err) {
+      toast("Network error. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   };
+
+  //   const onJonInterview = async () => {
+  //   setLoading(true);
+
+  //   let { data: interviews, error } = await supabase
+  //     .from("interviews")
+  //     .select("*")
+  //     .eq("interview_id", interview_id);
+
+  //   setInterviewInfo({
+  //     userName: userName,
+  //     userEmail: userEmail,
+  //     interviewData: interviews[0],
+  //   });
+  //   router.push("/interview/" + interview_id + "/start");
+  //   setLoading(false);
+  // };
 
   return (
     <div className="px-10 md:px-28 lg:px-48 xl:px-80 pb-20 mt-7">
