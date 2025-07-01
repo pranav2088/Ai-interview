@@ -53,7 +53,7 @@ function StartInterview() {
 
     const handleCallEnd = () => {
       toast("Interview Ended");
-      endInterview();
+      GeneratedFeedback();
     };
 
     // Register event handlers
@@ -125,7 +125,7 @@ End positively:
     vapi.current?.start(assistantOptions);
   };
 
-  const endInterview = async () => {
+  const GeneratedFeedback = async () => {
     if (feedbackCalledRef.current) return;
     feedbackCalledRef.current = true;
 
@@ -219,7 +219,7 @@ End positively:
         {!loading ? (
           <Phone
             className="h-12 w-12 p-3 bg-red-500 text-white rounded-full cursor-pointer"
-            onClick={endInterview}
+            onClick={GeneratedFeedback}
           />
         ) : (
           <Loader2 className="animate-spin h-10 w-10" />
