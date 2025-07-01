@@ -40,8 +40,6 @@ function QuestionList({ formData, onCreateLink }) {
       .update({ credits: Number(user?.credits) - 1 })
       .eq("email", user?.email)
       .select();
-
-    console.log("userUpdate", userUpdate);
     setSaveLoading(false);
     onCreateLink(interview_id);
   };
