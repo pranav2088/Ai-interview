@@ -4,6 +4,7 @@ import React, { useContext } from "react";
 import Image from "next/image";
 import { InterviewDataContext } from "@/context/InterviewDataContext";
 import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
 function Interviewcompleted() {
   const { interviewInfo } = useContext(InterviewDataContext);
@@ -62,12 +63,12 @@ function Interviewcompleted() {
           <p className="mt-4 text-gray-600">
             We appreciate your time and effort. Best of luck!
           </p>
-          <Link
-            href="/"
+          <Button
+            onClick={() => window.close()}
             className="inline-block mt-6 px-6 py-3 bg-blue-600 text-white font-medium rounded-md hover:bg-blue-700 transition duration-300"
           >
             Close
-          </Link>
+          </Button>
         </div>
       </div>
     </div>
