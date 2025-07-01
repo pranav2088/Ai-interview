@@ -25,7 +25,29 @@ function CandidatList({ candidateList }) {
             </div>
           </div>
           <div className="flex gap-3 items-center">
-            <h2 className="text-green-600">6/10</h2>
+            {/* <h2 className="text-green-600">6/10</h2> */}
+
+            <h2 className="text-green-600">
+              {(() => {
+                const ratings = feedback?.rating;
+                const values = [
+                  ratings?.technicalSkills,
+                  ratings?.communication,
+                  ratings?.problemSloving,
+                  ratings?.experince,
+                ].filter((v) => typeof v === "number"); // avoid undefined/null
+
+                const average =
+                  values.length > 0
+                    ? (
+                        values.reduce((a, b) => a + b, 0) / values.length
+                      ).toFixed(1)
+                    : "N/A";
+
+                return `${average}/10`;
+              })()}
+            </h2>
+
             <CandidateFeedbackDialog candidate={candidate} />
           </div>
         </div>
