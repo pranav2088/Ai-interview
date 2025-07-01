@@ -29,7 +29,7 @@ function CandidatList({ candidateList }) {
 
             <h2 className="text-green-600">
               {(() => {
-                const ratings = feedback?.rating;
+                const ratings = candidate?.rating;
                 const values = [
                   ratings?.technicalSkills,
                   ratings?.communication,
