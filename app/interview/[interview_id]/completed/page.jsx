@@ -6,10 +6,12 @@ import { InterviewDataContext } from "@/context/InterviewDataContext";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Video } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 function Interviewcompleted() {
   const { interviewInfo } = useContext(InterviewDataContext);
-
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
   const onCloseInterview = async () => {
     setLoading(true);
     router.push("/interview/" + interview_id);
