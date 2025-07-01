@@ -79,8 +79,7 @@ function Interviewcompleted() {
               onClick={() => onCloseInterview()}
             >
               Close
-              <SquareX />
-              {loading && <Loader2Icon />}
+              {loading && <SquareX />}
             </Button>
           </div>
         </div>
