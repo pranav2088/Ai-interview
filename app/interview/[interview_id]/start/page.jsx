@@ -133,6 +133,17 @@ End positively:
     setLoading(true);
 
     try {
+      // 🔍 Check if user has at least one message
+      const userSpoke = conversation?.some(
+        (msg) => msg?.role === "user" && msg.content?.trim()
+      );
+
+      if (!userSpoke) {
+        toast.warning("No response received from user. Skipping feedback.");
+        router.replace(`/interview/${interview_id}/completed`);
+        return;
+      }
+
       const result = await axios.post("/api/ai-feedback", {
         conversation,
       });
@@ -234,3 +245,49 @@ End positively:
 }
 
 export default StartInterview;
+
+// const GeneratedFeedback = async () => {
+//   if (feedbackCalledRef.current) return;
+//   feedbackCalledRef.current = true;
+
+//   vapi.current?.stop();
+//   setLoading(true);
+
+//   try {
+//     const result = await axios.post("/api/ai-feedback", {
+//       conversation,
+//     });
+
+//     const content = result?.data?.content;
+
+//     if (!content) {
+//       toast.error("No feedback returned.");
+//       return;
+//     }
+
+//     const match = content.match(/```json\s*([\s\S]*?)\s*```/);
+//     const parsedJSON = match ? JSON.parse(match[1]) : null;
+
+//     if (!parsedJSON) {
+//       toast.error("Failed to parse feedback.");
+//       return;
+//     }
+
+//     await supabase.from("interview-feedback").insert([
+//       {
+//         userName: interviewInfo?.userName,
+//         userEmail: interviewInfo?.userEmail,
+//         interview_id,
+//         feedback: parsedJSON,
+//         recommended: false,
+//       },
+//     ]);
+
+//     router.replace(`/interview/${interview_id}/completed`);
+//   } catch (error) {
+//     console.error("Error generating feedback:", error);
+//     toast.error("Error generating feedback.");
+//   } finally {
+//     setLoading(false);
+//   }
+// };
