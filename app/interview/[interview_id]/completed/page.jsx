@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import Image from "next/image";
 import { InterviewDataContext } from "@/context/InterviewDataContext";
 import Link from "next/link";
@@ -12,6 +12,7 @@ function Interviewcompleted() {
   const { interviewInfo } = useContext(InterviewDataContext);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+
   const onCloseInterview = async () => {
     setLoading(true);
     router.push("/interview/" + interview_id);
