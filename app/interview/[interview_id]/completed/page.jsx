@@ -5,7 +5,7 @@ import Image from "next/image";
 import { InterviewDataContext } from "@/context/InterviewDataContext";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { DoorClosedLocked, Loader2Icon, Video } from "lucide-react";
+import { DoorClosedLocked, Loader2Icon, SquareX, Video } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 
 function Interviewcompleted() {
@@ -78,7 +78,7 @@ function Interviewcompleted() {
               className="group flex items-center gap-2"
               onClick={() => onCloseInterview()}
             >
-              <DoorClosedLocked />
+              <SquareX />
               {loading && <Loader2Icon />}
               Close
             </Button>
