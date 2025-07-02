@@ -133,17 +133,6 @@ End positively:
     setLoading(true);
 
     try {
-      // 🔍 Check if user has at least one message
-      const userSpoke = conversation?.some(
-        (msg) => msg?.role === "user" && msg.content?.trim()
-      );
-
-      if (!userSpoke) {
-        toast.warning("No response received from user. Skipping feedback.");
-        router.replace(`/interview/${interview_id}/completed`);
-        return;
-      }
-
       const result = await axios.post("/api/ai-feedback", {
         conversation,
       });
