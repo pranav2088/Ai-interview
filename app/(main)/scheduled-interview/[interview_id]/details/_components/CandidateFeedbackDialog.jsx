@@ -112,9 +112,7 @@ function CandidateFeedbackDialog({ candidate }) {
               <div className="mt-5">
                 <h2 className="font-bold">Performance Summery</h2>
                 <div className="p-5 bg-secondary mt-3 rounded-md">
-                  {feedback?.summary?.map((summary, index) => (
-                    <p key={index}>{summary}</p>
-                  ))}
+                  {feedback?.summary}
                 </div>
               </div>
 
