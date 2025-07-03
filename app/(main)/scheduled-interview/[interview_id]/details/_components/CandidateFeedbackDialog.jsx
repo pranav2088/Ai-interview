@@ -89,20 +89,20 @@ function CandidateFeedbackDialog({ candidate }) {
                   <div>
                     <h2 className="flex justify-between">
                       Problem Sloving{" "}
-                      <span>{feedback?.rating?.problemSloving}/10</span>
+                      <span>{feedback?.rating?.problemSolving}/10</span>
                     </h2>
                     <Progress
-                      value={feedback?.rating?.problemSloving * 10}
+                      value={feedback?.rating?.problemSolving * 10}
                       className={"mt-1"}
                     />
                   </div>
 
                   <div>
                     <h2 className="flex justify-between">
-                      Experince <span>{feedback?.rating?.experince}/10</span>
+                      Experince <span>{feedback?.rating?.experience}/10</span>
                     </h2>
                     <Progress
-                      value={feedback?.rating?.experince * 10}
+                      value={feedback?.rating?.experience * 10}
                       className={"mt-1"}
                     />
                   </div>
@@ -112,52 +112,21 @@ function CandidateFeedbackDialog({ candidate }) {
               <div className="mt-5">
                 <h2 className="font-bold">Performance Summery</h2>
                 <div className="p-5 bg-secondary mt-3 rounded-md">
-                  {feedback?.summery ?? "No summery Available ..."}
+                  {feedback?.summary?.map((summary, index) => (
+                    <p key={index}>{summary}</p>
+                  ))}
                 </div>
               </div>
 
               <div
-                className={`p-5 mt-10 flex items-center justify rounded-md ${
-                  feedback?.Recommendation === "No"
+                className={`p-5  rounded-md${
+                  feedback?.recommendation == "No"
                     ? "bg-red-100"
                     : "bg-green-100"
                 }`}
               >
-                <div>
-                  <h2
-                    className={`font-bold ${
-                      feedback?.Recommendation === "No"
-                        ? "text-red-700"
-                        : "text-green-700"
-                    }`}
-                  >
-                    {" "}
-                    Recommendation Msg:
-                  </h2>
-                  <p
-                    className={`font-bold ${
-                      feedback?.Recommendation === "No"
-                        ? "text-red-500"
-                        : "text-green-800"
-                    }`}
-                  >
-                    {feedback?.RecommendationMsg}
-                  </p>
-                </div>
-                {feedback?.RecommendationMsg ? (
-                  <Button
-                    variant="outline"
-                    className={`${
-                      feedback?.Recommendation === "No"
-                        ? "bg-red-700"
-                        : "bg-green-700"
-                    } text-white`}
-                  >
-                    Send Msg
-                  </Button>
-                ) : (
-                  <h2 className="font-bold p-5 text-red-700">No data</h2>
-                )}
+                <h2>Recommendation Msg:</h2>
+                <p>{feedback?.recommendationMsg}</p>
               </div>
             </div>
           </DialogDescription>
