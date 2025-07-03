@@ -123,8 +123,24 @@ function CandidateFeedbackDialog({ candidate }) {
                     : "bg-green-100"
                 }`}
               >
-                <h2>Recommendation Msg:</h2>
-                <p>{feedback?.recommendationMsg}</p>
+                <h2
+                  className={`${
+                    feedback?.recommendation === "No"
+                      ? "text-red-700"
+                      : "text-green-700"
+                  }`}
+                >
+                  Recommendation Msg:
+                </h2>
+                <p
+                  className={`${
+                    feedback?.recommendation === "No"
+                      ? "text-red-500"
+                      : "text-green-500"
+                  }`}
+                >
+                  {feedback?.recommendationMsg}
+                </p>
               </div>
             </div>
           </DialogDescription>
