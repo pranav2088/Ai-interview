@@ -117,8 +117,8 @@ function CandidateFeedbackDialog({ candidate }) {
               </div>
 
               <div
-                className={`p-5  rounded-md${
-                  feedback?.recommendation == "No"
+                className={`p-5 rounded-md ${
+                  feedback?.recommendation === "No"
                     ? "bg-red-100"
                     : "bg-green-100"
                 }`}
