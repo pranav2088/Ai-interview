@@ -117,7 +117,7 @@ function CandidateFeedbackDialog({ candidate }) {
               </div>
 
               <div
-                className={`p-5 flex items-center justify-between rounded-md ${
+                className={`p-5 mt-10 flex items-center justify-between rounded-md ${
                   feedback?.recommendation === "No"
                     ? "bg-red-100"
                     : "bg-green-100"
@@ -125,7 +125,7 @@ function CandidateFeedbackDialog({ candidate }) {
               >
                 <div>
                   <h2
-                    className={` font-bold${
+                    className={`font-bold ${
                       feedback?.recommendation === "No"
                         ? "text-red-700"
                         : "text-green-700"
