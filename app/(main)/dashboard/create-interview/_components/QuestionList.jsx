@@ -49,45 +49,59 @@ function QuestionList({ formData, onCreateLink }) {
     setLoading(true);
 
     try {
-      const result = await axios.post("/api/ai-model", {
-        ...formData,
-      });
-
+      const result = await axios.post("/api/ai-model", { ...formData });
       const content = result?.data?.content;
 
-      if (typeof content === "string") {
-        // Try to extract a ```json block first (AI-friendly format)
-        const jsonBlockMatch = content.match(/```json\s*([\s\S]*?)\s*```/i);
+      if (typeof content !== "string") {
+        toast("No content received from AI.");
+        return;
+      }
 
-        if (jsonBlockMatch) {
+      let parsed = null;
+
+      // First try: Extract from ```json ... ```
+      const jsonCodeBlock = content.match(/```json\s*([\s\S]*?)```/i);
+      if (jsonCodeBlock) {
+        try {
+          parsed = JSON.parse(jsonCodeBlock[1]);
+        } catch (e) {
+          console.error("Failed to parse JSON from ```json block:", e);
+        }
+      }
+
+      // Fallback: Try to find and fix raw JSON object
+      if (!parsed) {
+        const fallbackMatch = content.match(/{[\s\S]*}/);
+        if (fallbackMatch) {
+          let cleaned = fallbackMatch[0];
+
+          // Clean up known formatting errors
+          cleaned = cleaned
+            .replace(/,\s*}/g, "}") // trailing commas
+            .replace(/,\s*]/g, "]") // trailing commas in arrays
+            .replace(/(\w+):/g, '"$1":') // ensure keys are quoted (optional, if necessary)
+            .replace(/“|”/g, '"'); // fix smart quotes
+
           try {
-            const parsed = JSON.parse(jsonBlockMatch[1]);
-            setQuestionList(parsed.interviewQuestions || []);
+            parsed = JSON.parse(cleaned);
           } catch (e) {
-            console.error("JSON inside code block is invalid:", e);
-            toast("Received malformed JSON from AI response.");
+            console.error("Cleaned fallback JSON parsing failed:", e);
+            toast("AI returned invalid JSON. Please try again.");
           }
         } else {
-          // Fallback: Try to extract a raw JSON object from the text
-          const fallbackMatch = content.match(/{[\s\S]*?}/);
-          if (fallbackMatch) {
-            try {
-              const parsed = JSON.parse(fallbackMatch[0]);
-              setQuestionList(parsed.interviewQuestions || []);
-            } catch (e) {
-              console.error("Fallback JSON parsing failed:", e);
-              toast("Unable to parse questions. AI returned bad format.");
-            }
-          } else {
-            toast("No valid JSON found in AI response.");
-          }
+          toast("No valid JSON structure found in AI response.");
         }
+      }
+
+      // If successful, update state
+      if (parsed && parsed.interviewQuestions) {
+        setQuestionList(parsed.interviewQuestions);
       } else {
-        toast("No content received from AI.");
+        toast("AI response does not contain valid questions.");
       }
     } catch (e) {
       console.error("Error calling AI model:", e);
-      toast("Server error. Try again!");
+      toast("Server error while generating questions.");
     } finally {
       setLoading(false);
     }
