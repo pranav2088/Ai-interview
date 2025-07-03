@@ -117,30 +117,41 @@ function CandidateFeedbackDialog({ candidate }) {
               </div>
 
               <div
-                className={`p-5 rounded-md ${
+                className={`p-5 flex items-center justify-between rounded-md ${
                   feedback?.recommendation === "No"
                     ? "bg-red-100"
                     : "bg-green-100"
                 }`}
               >
-                <h2
+                <div>
+                  <h2
+                    className={` font-bold${
+                      feedback?.recommendation === "No"
+                        ? "text-red-700"
+                        : "text-green-700"
+                    }`}
+                  >
+                    Recommendation Msg:
+                  </h2>
+                  <p
+                    className={`${
+                      feedback?.recommendation === "No"
+                        ? "text-red-500"
+                        : "text-green-500"
+                    }`}
+                  >
+                    {feedback?.recommendationMsg}
+                  </p>
+                </div>
+                <Button
                   className={`${
                     feedback?.recommendation === "No"
-                      ? "text-red-700"
-                      : "text-green-700"
+                      ? "bg-red-700"
+                      : "bg-green-700"
                   }`}
                 >
-                  Recommendation Msg:
-                </h2>
-                <p
-                  className={`${
-                    feedback?.recommendation === "No"
-                      ? "text-red-500"
-                      : "text-green-500"
-                  }`}
-                >
-                  {feedback?.recommendationMsg}
-                </p>
+                  Send Msg
+                </Button>
               </div>
             </div>
           </DialogDescription>
