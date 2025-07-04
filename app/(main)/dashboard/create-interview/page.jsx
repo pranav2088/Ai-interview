@@ -21,6 +21,7 @@ function CreateInterview() {
       [field]: value,
     }));
   };
+  console.log("user", user);
   const onGoToNext = () => {
     if (user?.credits <= 0) {
       toast("Please add Credits");
