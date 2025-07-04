@@ -22,6 +22,7 @@ function CreateInterview() {
     }));
   };
   console.log("user", user);
+  console.log("credits", user?.credits);
   const onGoToNext = () => {
     if (user?.credits <= 0) {
       toast("Please add Credits");
