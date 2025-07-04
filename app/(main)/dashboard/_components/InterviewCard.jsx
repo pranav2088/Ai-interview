@@ -6,8 +6,6 @@ import React from "react";
 import { toast } from "sonner";
 
 function InterviewCard({ interview, viewDetail = false }) {
-  // const url = process.env.NEXT_PUBLIC_HOST_URL + "/" + interview?.interview_id;
-
   const copyLink = () => {
     if (!interview?.interview_id) {
       toast.error("Interview ID is missing!");
