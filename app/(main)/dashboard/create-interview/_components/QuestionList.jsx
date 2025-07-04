@@ -23,6 +23,7 @@ function QuestionList({ formData, onCreateLink }) {
   const onFinish = async () => {
     setSaveLoading(true);
     const interview_id = uuidv4();
+
     const { data, error } = await supabase
       .from("interviews")
       .insert([
@@ -35,12 +36,25 @@ function QuestionList({ formData, onCreateLink }) {
       ])
       .select();
 
-    //Update user credits
-    const userUpdate = await supabase
+    if (error) {
+      toast.error("Failed to create interview. Please try again.");
+      setSaveLoading(false);
+      return;
+    }
+
+    // Update user credits
+    const { error: creditError } = await supabase
       .from("Users")
       .update({ credits: Number(user?.credits) - 1 })
-      .eq("email", user?.email)
-      .select();
+      .eq("email", user?.email);
+
+    if (creditError) {
+      toast.warning("Interview created, but failed to update user credits.");
+      // You might log this error for debugging or notify an admin
+    } else {
+      toast.success("Interview created and credit updated!");
+    }
+
     setSaveLoading(false);
     onCreateLink(interview_id);
   };
