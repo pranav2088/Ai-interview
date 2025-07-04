@@ -141,7 +141,10 @@ function QuestionList({ formData, onCreateLink }) {
       </div>
 
       <div className="flex justify-end mt-10">
-        <Button onClick={() => onFinish()} disabled={saveLoading}>
+        <Button
+          onClick={() => onFinish()}
+          disabled={saveLoading || loading || questionList.length === 0}
+        >
           {saveLoading && <Loader2 className="animate-spin" />}
           Create Interview Link & Finish
         </Button>
