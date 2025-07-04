@@ -70,6 +70,10 @@ function QuestionList({ formData, onCreateLink }) {
         toast("No content received from AI.");
         return;
       }
+      if (result?.data?.error?.code === 503) {
+        toast("AI is currently busy. Please try again shortly.");
+        return;
+      }
 
       let parsed = null;
 
