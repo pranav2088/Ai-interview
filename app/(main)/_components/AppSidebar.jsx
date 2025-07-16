@@ -80,6 +80,13 @@ export function AppSidebar() {
     <>
       <Sidebar>
         <SidebarHeader className={"flex items-center mt-5"}>
+          <Image
+            src="public/AI-logo.png"
+            alt="logo"
+            width={500}
+            height={500}
+            className="w-[280px] my-6"
+          />
           <Button
             className={"w-full mt-5"}
             onClick={() => router.push("/dashboard/create-interview")}

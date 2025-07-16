@@ -4,13 +4,13 @@ import React from "react";
 function InterviewHeader() {
   return (
     <div className="p-4 shadow-sm">
-      {/* <Image
-        src="/logo.png"
+      <Image
+        src="public/AI-logo.png"
         alt="logo"
         width={100}
         height={100}
         className="w-[145px]"
-      /> */}
+      />
     </div>
   );
 }
