@@ -84,7 +84,7 @@ export function AppSidebar() {
             src="/AI-logo.png"
             alt="logo"
             width={200}
-            height={150}
+            height={50}
             className="w-[280px] my-6"
           />
           <Button
