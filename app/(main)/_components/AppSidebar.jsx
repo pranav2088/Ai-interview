@@ -83,7 +83,7 @@ export function AppSidebar() {
           <Image
             src="/AI-logo.png"
             alt="logo"
-            width={200}
+            width={100}
             height={50}
             className="w-[280px] my-6"
           />
