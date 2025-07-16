@@ -52,11 +52,15 @@ function InterviewCard({ interview, viewDetail = false }) {
             variant="outline"
             className="w-full flex items-center justify-center gap-2"
             onClick={copyLink}
+            disable={true}
           >
             <Copy className="h-4 w-4" />
             Copy Link
           </Button>
-          <Button className="w-full flex items-center justify-center gap-2">
+          <Button
+            className="w-full flex items-center justify-center gap-2"
+            disable={true}
+          >
             <Send className="h-4 w-4" onClick={onSend} />
             Send
           </Button>

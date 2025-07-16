@@ -48,7 +48,7 @@ function InterviewLink({ interview_id, formData, CreateInterview }) {
         </div>
         <div className="mt-3 flex gap-3 items-center ">
           <Input defaultValue={GetInterviewUrl()} disabled={false} />
-          <Button onClick={() => onCopyLink()}>
+          <Button onClick={() => onCopyLink()} disable={true}>
             <Copy /> Copy Link
           </Button>
         </div>

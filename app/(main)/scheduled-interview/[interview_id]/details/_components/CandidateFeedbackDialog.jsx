@@ -149,6 +149,7 @@ function CandidateFeedbackDialog({ candidate }) {
                       ? "bg-red-700"
                       : "bg-green-700"
                   }`}
+                  disable={true}
                 >
                   Send Msg
                 </Button>
