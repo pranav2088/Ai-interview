@@ -114,13 +114,6 @@ function Interview() {
   return (
     <div className="px-10 md:px-28 lg:px-48 xl:px-80 pb-20 mt-7">
       <div className="flex flex-col items-center justify-center border rounded-lg bg-white  p-7 lg:px-33 xl:px-52 mb-20 pb-15">
-        <Image
-          src="/logo.png"
-          alt="logo"
-          width={100}
-          height={100}
-          className="w-[140px]"
-        />
         <h2 className="mt-3">AI Powered Interview Platform</h2>
         <Image
           src="/interview.png"

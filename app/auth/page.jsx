@@ -40,13 +40,6 @@ function Login() {
   return (
     <div className="flex flex-col items-center justify-center h-screen">
       <div className="flex flex-col items-center border rounded-2xl p-8">
-        <Image
-          src={"/logo.png"}
-          alt="logo"
-          width={200}
-          height={150}
-          className="w-[100px]"
-        />
         <div className="flex items-center flex-col">
           <Image
             src={"/login.jpeg"}
