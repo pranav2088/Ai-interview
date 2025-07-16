@@ -93,6 +93,7 @@ function FormContainer({ onHandleInputChange, GoToNext }) {
         <Button
           onClick={() => GoToNext()}
           className="group flex items-center gap-2"
+          disabled={true}
         >
           Generate Questions
           <ArrowRight className="group-hover:translate-x-1 transition-transform duration-200" />

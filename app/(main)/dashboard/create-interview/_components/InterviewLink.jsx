@@ -96,6 +96,7 @@ function InterviewLink({ interview_id, formData, CreateInterview }) {
           <Button
             onClick={() => CreateInterview()}
             className="group flex items-center gap-2"
+            disabled={true}
           >
             <Plus />
             Create New Interview

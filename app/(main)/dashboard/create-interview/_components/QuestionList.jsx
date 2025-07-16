@@ -14,112 +14,112 @@ function QuestionList({ formData, onCreateLink }) {
 
   const [questionList, setQuestionList] = useState([]);
   const { user } = useUser();
-  useEffect(() => {
-    if (formData) {
-      GenerateQuestionList();
-    }
-  }, [formData]);
+  // useEffect(() => {
+  //   if (formData) {
+  //     GenerateQuestionList();
+  //   }
+  // }, [formData]);
 
-  const onFinish = async () => {
-    setSaveLoading(true);
-    const interview_id = uuidv4();
+  // const onFinish = async () => {
+  //   setSaveLoading(true);
+  //   const interview_id = uuidv4();
 
-    const { data, error } = await supabase
-      .from("interviews")
-      .insert([
-        {
-          ...formData,
-          questionList: questionList,
-          userEmail: user?.email,
-          interview_id: interview_id,
-        },
-      ])
-      .select();
+  //   const { data, error } = await supabase
+  //     .from("interviews")
+  //     .insert([
+  //       {
+  //         ...formData,
+  //         questionList: questionList,
+  //         userEmail: user?.email,
+  //         interview_id: interview_id,
+  //       },
+  //     ])
+  //     .select();
 
-    if (error) {
-      toast.error("Failed to create interview. Please try again.");
-      setSaveLoading(false);
-      return;
-    }
+  //   if (error) {
+  //     toast.error("Failed to create interview. Please try again.");
+  //     setSaveLoading(false);
+  //     return;
+  //   }
 
-    // Update user credits
-    const { error: creditError } = await supabase
-      .from("Users")
-      .update({ credits: Number(user?.credits) - 1 })
-      .eq("email", user?.email);
+  //   // Update user credits
+  //   const { error: creditError } = await supabase
+  //     .from("Users")
+  //     .update({ credits: Number(user?.credits) - 1 })
+  //     .eq("email", user?.email);
 
-    if (creditError) {
-      toast.warning("Interview created, but failed to update user credits.");
-      // You might log this error for debugging or notify an admin
-    } else {
-      toast.success("Interview created and credit updated!");
-    }
+  //   if (creditError) {
+  //     toast.warning("Interview created, but failed to update user credits.");
+  //     // You might log this error for debugging or notify an admin
+  //   } else {
+  //     toast.success("Interview created and credit updated!");
+  //   }
 
-    setSaveLoading(false);
-    onCreateLink(interview_id);
-  };
+  //   setSaveLoading(false);
+  //   onCreateLink(interview_id);
+  // };
 
-  const GenerateQuestionList = async () => {
-    setLoading(true);
+  // const GenerateQuestionList = async () => {
+  //   setLoading(true);
 
-    try {
-      const result = await axios.post("/api/ai-model", { ...formData });
-      const content = result?.data?.content;
+  //   try {
+  //     const result = await axios.post("/api/ai-model", { ...formData });
+  //     const content = result?.data?.content;
 
-      if (typeof content !== "string") {
-        toast("No content received from AI.");
-        return;
-      }
+  //     if (typeof content !== "string") {
+  //       toast("No content received from AI.");
+  //       return;
+  //     }
 
-      let parsed = null;
+  //     let parsed = null;
 
-      // First try: Extract from ```json ... ```
-      const jsonCodeBlock = content.match(/```json\s*([\s\S]*?)```/i);
-      if (jsonCodeBlock) {
-        try {
-          parsed = JSON.parse(jsonCodeBlock[1]);
-        } catch (e) {
-          console.error("Failed to parse JSON from ```json block:", e);
-        }
-      }
+  //     // First try: Extract from ```json ... ```
+  //     const jsonCodeBlock = content.match(/```json\s*([\s\S]*?)```/i);
+  //     if (jsonCodeBlock) {
+  //       try {
+  //         parsed = JSON.parse(jsonCodeBlock[1]);
+  //       } catch (e) {
+  //         console.error("Failed to parse JSON from ```json block:", e);
+  //       }
+  //     }
 
-      // Fallback: Try to find and fix raw JSON object
-      if (!parsed) {
-        const fallbackMatch = content.match(/{[\s\S]*}/);
-        if (fallbackMatch) {
-          let cleaned = fallbackMatch[0];
+  //     // Fallback: Try to find and fix raw JSON object
+  //     if (!parsed) {
+  //       const fallbackMatch = content.match(/{[\s\S]*}/);
+  //       if (fallbackMatch) {
+  //         let cleaned = fallbackMatch[0];
 
-          // Clean up known formatting errors
-          cleaned = cleaned
-            .replace(/,\s*}/g, "}") // trailing commas
-            .replace(/,\s*]/g, "]") // trailing commas in arrays
-            .replace(/(\w+):/g, '"$1":') // ensure keys are quoted (optional, if necessary)
-            .replace(/“|”/g, '"'); // fix smart quotes
+  //         // Clean up known formatting errors
+  //         cleaned = cleaned
+  //           .replace(/,\s*}/g, "}") // trailing commas
+  //           .replace(/,\s*]/g, "]") // trailing commas in arrays
+  //           .replace(/(\w+):/g, '"$1":') // ensure keys are quoted (optional, if necessary)
+  //           .replace(/“|”/g, '"'); // fix smart quotes
 
-          try {
-            parsed = JSON.parse(cleaned);
-          } catch (e) {
-            console.error("Cleaned fallback JSON parsing failed:", e);
-            toast("AI returned invalid JSON. Please try again.");
-          }
-        } else {
-          toast("No valid JSON structure found in AI response.");
-        }
-      }
+  //         try {
+  //           parsed = JSON.parse(cleaned);
+  //         } catch (e) {
+  //           console.error("Cleaned fallback JSON parsing failed:", e);
+  //           toast("AI returned invalid JSON. Please try again.");
+  //         }
+  //       } else {
+  //         toast("No valid JSON structure found in AI response.");
+  //       }
+  //     }
 
-      // If successful, update state
-      if (parsed && parsed.interviewQuestions) {
-        setQuestionList(parsed.interviewQuestions);
-      } else {
-        toast("AI response does not contain valid questions.");
-      }
-    } catch (e) {
-      console.error("Error calling AI model:", e);
-      toast("Server error while generating questions.");
-    } finally {
-      setLoading(false);
-    }
-  };
+  //     // If successful, update state
+  //     if (parsed && parsed.interviewQuestions) {
+  //       setQuestionList(parsed.interviewQuestions);
+  //     } else {
+  //       toast("AI response does not contain valid questions.");
+  //     }
+  //   } catch (e) {
+  //     console.error("Error calling AI model:", e);
+  //     toast("Server error while generating questions.");
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
 
   return (
     <div>
@@ -143,7 +143,8 @@ function QuestionList({ formData, onCreateLink }) {
       <div className="flex justify-end mt-10">
         <Button
           onClick={() => onFinish()}
-          disabled={saveLoading || loading || questionList.length === 0}
+          // disabled={saveLoading || loading || questionList.length === 0}
+          disabled={true}
         >
           {saveLoading && <Loader2 className="animate-spin" />}
           Create Interview Link & Finish
