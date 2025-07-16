@@ -81,7 +81,7 @@ export function AppSidebar() {
       <Sidebar>
         <SidebarHeader className={"flex items-center mt-5"}>
           <Image
-            src="public/AI-logo.png"
+            src="/AI-logo.png"
             alt="logo"
             width={500}
             height={500}
